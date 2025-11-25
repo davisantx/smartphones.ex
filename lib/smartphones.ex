@@ -55,7 +55,11 @@ defmodule Smartphones do
   def delete_all do
     Agent.update(__MODULE__, fn _list -> [] end)
   end
-
+  
+  def have_warranty(%Warranties{}=warranty) do
+    warranty |> Warranties.exists()
+  end
+  
   defp show(%Smartphones{} = smartphone) do
     smartphone
     |> get()

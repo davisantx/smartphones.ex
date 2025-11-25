@@ -13,7 +13,7 @@ defmodule Users do
             128,
             :android,
             15,
-            Warranties.new(118)
+            Warranties.new(Date.new(2024, 12, 20), Time.new(14, 20, 2))
           )
       },
       %Users{
@@ -51,7 +51,8 @@ defmodule Users do
   def get_all(users_list) do
     Enum.each(users_list, fn user -> user |> show() end)
   end
-
+  
+  
   defp show(%Users{} = user) do
     IO.puts("""
       username: #{user.username}

@@ -1,20 +1,36 @@
 defmodule Warranties do
-  @enforce_keys [:time_days]
-  defstruct [:time_days]
+  @enforce_keys [:date, :time]
+  defstruct [:date, :time]
 
-  def new(days \\ 0) do
+  def new(date \\ nil, time \\ nil) do
     %Warranties{
-      time_days: days
+      date: date,
+      time: time
     }
   end
 
   def get(%Warranties{} = warranty) do
-    case warranty.time_days do
-      0 -> "No Warranty"
-      true -> "time: #{warranty.time_days} days still"
+    case warranty |> exists() do 
+      false -> "No warranty"
+      true ->  
+        {_, date} = warranty.date
+        {_, time} = warranty.time
+        "date: #{date}, time: #{time}"
     end
   end
 
+  def exists(%Warranties{} = warranty) do
+    cond do
+      warranty.date |> is_nil() or warranty.time |> is_nil() -> false
+      true -> true
+    end
+    
+  end
+
   def get_all() do
+  
+    smartphones = Agent.get(Smartphones, fn list -> list |> Enum.reverse() end)
+
+    Enum.each(smartphones, fn smartphone -> smartphone.warranty |> get() |> IO.puts() end)
   end
 end
