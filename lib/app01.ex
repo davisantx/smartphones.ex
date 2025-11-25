@@ -6,4 +6,8 @@ defmodule App01 do
   def smartphones() do
     Smartphones
   end
+
+  def warranties() do
+    Warranties
+  end
 end

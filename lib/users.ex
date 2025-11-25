@@ -1,5 +1,5 @@
 defmodule Users do
-  @enforce_keys [:username, :email]
+  @enforce_keys [:username, :email, :smartphone]
   defstruct [:username, :email, :smartphone]
 
   def get do
@@ -7,17 +7,38 @@ defmodule Users do
       %Users{
         username: "joaodx",
         email: "joaodx23@gmail.com",
-        smartphone: Smartphones.new("Galaxy A55", 128, :android, 15)
+        smartphone:
+          Smartphones.new(
+            "Galaxy A55",
+            128,
+            :android,
+            15,
+            Warranties.new(118)
+          )
       },
       %Users{
         username: "pithp",
         email: "pithp0@gmail.com",
-        smartphone: Smartphones.new("Poco x6", 256, :android, 15)
+        smartphone:
+          Smartphones.new(
+            "Poco x6",
+            256,
+            :android,
+            15,
+            Warranties.new()
+          )
       },
       %Users{
         username: "luis_freit99",
         email: "luis3993@gmail.com",
-        smartphone: Smartphones.new("Moto g74", 256, :android, 15)
+        smartphone:
+          Smartphones.new(
+            "Moto g74",
+            256,
+            :android,
+            15,
+            Warranties.new()
+          )
       }
     ]
   end
@@ -35,7 +56,7 @@ defmodule Users do
     IO.puts("""
       username: #{user.username}
       email: #{user.email}
-      smartphone: {#{Smartphones.get(user.smartphone)}}
+      smartphone: {\n#{Smartphones.get(user.smartphone)}}
     """)
   end
 end
